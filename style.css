@@ -10,17 +10,18 @@ img {
     display: block;
 }
 
-
 /* BODY BACKGROUND */
 body {
     font-family: Arial, sans-serif;
     color: white;
-
-    background-image: url("background.jpg.jpg");              
+    background-image: url("background.jpg.jpg");
     background-size: cover;
-    background-position: center;                              /* Full screen image with dark overlay */
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Dark overlay for readability */
@@ -32,15 +33,15 @@ body::before {
     z-index: -1;
 }
 
-
 /* NAVIGATION BAR */
 nav {
     background: rgba(0, 0, 0, 0.7);
     padding: 15px 40px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    backdrop-filter: blur(5px);
 }
 
 .logo {
@@ -58,19 +59,38 @@ nav ul li a {
     text-decoration: none;
     color: white;
     transition: opacity 0.3s ease;
+    font-size: 16px;
 }
 
 nav ul li a:hover {
     opacity: 0.7;
 }
 
-
 /* MAIN CONTAINER */
 .container {
-    padding: 80px 20px;
+    padding: 60px 20px;
     text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1;
 }
 
+/* Headings */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
 
 /* PROJECT CARDS */
 .card {
@@ -81,12 +101,14 @@ nav ul li a:hover {
     width: 60%;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
 }
 
+.card:hover {
+    transform: translateY(-5px);
+}
 
 /* CONTACT FORM */
-
-
 form {
     display: flex;
     flex-direction: column;
@@ -101,6 +123,12 @@ textarea {
     border-radius: 6px;
     border: none;
     outline: none;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
 button {
@@ -111,6 +139,8 @@ button {
     color: white;
     cursor: pointer;
     transition: background 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 button:hover {
@@ -140,11 +170,10 @@ button:hover {
     width: 140px;
     border-radius: 50px;
     text-align: center;
-
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* FIXED IMAGE SIZE (no expansion allowed) */
+/* FIXED IMAGE SIZE */
 .skill-bubble img {
     width: 60px !important;
     height: 60px !important;
@@ -165,28 +194,205 @@ button:hover {
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
+/* Contact info */
+.container p:last-child {
+    margin-top: 20px;
+    font-size: 16px;
+}
 
+/* RESPONSIVE DESIGN - TABLETS AND SMALLER */
+@media (max-width: 768px) {
     nav {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
+        padding: 15px 20px;
     }
 
     nav ul {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 8px;
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 40px 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
     }
 
     .card {
-        width: 90%;
+        width: 95%;
+        padding: 20px;
+        margin: 15px auto;
     }
 
     form {
-        width: 90%;
+        width: 95%;
+    }
+
+    input,
+    textarea,
+    button {
+        font-size: 16px;
+        padding: 15px;
     }
 
     .skill-bubble {
-        width: 120px;
+        width: calc(50% - 25px);
+        min-width: 120px;
+        padding: 15px 10px;
+    }
+
+    .skill-bubble img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .skills-container {
+        gap: 15px;
+    }
+}
+
+/* RESPONSIVE DESIGN - SMALL PHONES */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 18px;
+    }
+
+    nav ul li a {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .container {
+        padding: 30px 12px;
+    }
+
+    .skill-bubble {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .skills-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    form {
+        width: 100%;
+    }
+}
+
+/* LARGE DESKTOP SCREENS */
+@media (min-width: 1200px) {
+    .container {
+        padding: 80px 40px;
+    }
+
+    .card {
+        width: 50%;
+    }
+
+    form {
+        width: 40%;
+    }
+}
+
+/* ENHANCED INTERACTIVITY */
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    button:hover {
+        background-color: #1e4fd8;
+        transform: scale(1.02);
+    }
+}
+
+/* TOUCH DEVICE OPTIMIZATIONS */
+@media (hover: none) and (pointer: coarse) {
+    input,
+    textarea,
+    button,
+    nav ul li a {
+        min-height: 44px; /* Better touch targets */
+    }
+
+    .skill-bubble {
+        padding: 15px;
+    }
+
+    .skill-bubble img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+}
+
+/* ENSURE CONTENT IS ALWAYS READABLE */
+@media (max-width: 768px) {
+    body::before {
+        background: rgba(0, 0, 0, 0.7); /* Slightly darker on mobile for better contrast */
+    }
+}
+
+/* PRINT STYLES */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    body::before {
+        display: none;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .skill-bubble {
+        border: 1px solid #ccc;
+        background: white;
+    }
+
+    .skill-bubble p {
+        color: black;
     }
 }
